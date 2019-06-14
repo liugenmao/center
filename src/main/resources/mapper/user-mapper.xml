@@ -1,0 +1,68 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoliu.centerbiz.dao.IUserDao">
+	<!-- 实体 -->
+	<resultMap id="user" type="com.xiaoliu.centerbiz.domain.User">
+		<id column="id" property="id" />
+		<result column="username" property="username" />
+		<result column="password" property="password" />
+		<result column="is_enabled" property="isEnabled" />
+		<result column="realname" property="realname" />
+		<result column="phone_number" property="phoneNumber" />
+		<result column="created" property="created" />
+		<result column="modified" property="modified" />
+	</resultMap>
+	
+	<!-- 分页查询并排序 -->
+	<select id="listUsers" resultMap="user">
+		SELECT * FROM user a
+		<where>
+				<if test="params.containsKey('username') and params.username != null">AND username = #{params.username}</if>
+				<if test="params.containsKey('password') and params.password != null">AND password = #{params.password}</if>
+				<if test="params.containsKey('isEnabled') and params.isEnabled != null">AND is_enabled = #{params.isEnabled}</if>
+				<if test="params.containsKey('realname') and params.realname != null">AND realname = #{params.realname}</if>
+				<if test="params.containsKey('phoneNumber') and params.phoneNumber != null">AND phone_number = #{params.phoneNumber}</if>
+				<if test="params.containsKey('created') and params.created != null">AND created = #{params.created}</if>
+				<if test="params.containsKey('modified') and params.modified != null">AND modified = #{params.modified}</if>
+		</where>
+		<if test="orders != null">
+			order by
+			<foreach item="value" separator="," index="key" collection="orders">
+				a.${key} ${value}
+			</foreach>
+		</if>
+	</select>
+	
+	<!-- 新增 -->
+	<insert id="addUser" useGeneratedKeys="true" keyProperty="id"> 
+		INSERT INTO user 
+		(username,password,is_enabled,realname,phone_number,created,modified) 
+		VALUES
+		(#{username},#{password},#{isEnabled},#{realname},#{phoneNumber},#{created},#{modified})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="updateUser">
+		UPDATE user
+		<set>
+			<if test="params.containsKey('username') and params.username != null">username = #{params.username},</if>
+			<if test="params.containsKey('password') and params.password != null">password = #{params.password},</if>
+			<if test="params.containsKey('isEnabled') and params.isEnabled != null">is_enabled = #{params.isEnabled},</if>
+			<if test="params.containsKey('realname') and params.realname != null">realname = #{params.realname},</if>
+			<if test="params.containsKey('phoneNumber') and params.phoneNumber != null">phone_number = #{params.phoneNumber},</if>
+			<if test="params.containsKey('created') and params.created != null">created = #{params.created},</if>
+			<if test="params.containsKey('modified') and params.modified != null">modified = #{params.modified},</if>
+		</set>
+		where id = #{params.id}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="deleteUsers">
+		DELETE FROM user
+		<where>
+			id in
+			<foreach collection="ids" item="id" separator="," open="(" close=")">
+				#{id}
+			</foreach>
+		</where>
+	</delete>
+</mapper>

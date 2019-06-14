@@ -1,0 +1,62 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoliu.centerbiz.dao.IRoleModuleDao">
+	<!-- 实体 -->
+	<resultMap id="roleModule" type="com.xiaoliu.centerbiz.domain.RoleModule">
+		<id column="id" property="id" />
+		<result column="role_id" property="roleId" />
+		<result column="module_id" property="moduleId" />
+		<result column="is_enabled" property="isEnabled" />
+		<result column="created" property="created" />
+		<result column="modified" property="modified" />
+	</resultMap>
+	
+	<!-- 分页查询并排序 -->
+	<select id="listRoleModules" resultMap="roleModule">
+		SELECT * FROM role_module a
+		<where>
+				<if test="params.containsKey('roleId') and params.roleId != null">AND role_id = #{params.roleId}</if>
+				<if test="params.containsKey('moduleId') and params.moduleId != null">AND module_id = #{params.moduleId}</if>
+				<if test="params.containsKey('isEnabled') and params.isEnabled != null">AND is_enabled = #{params.isEnabled}</if>
+				<if test="params.containsKey('created') and params.created != null">AND created = #{params.created}</if>
+				<if test="params.containsKey('modified') and params.modified != null">AND modified = #{params.modified}</if>
+		</where>
+		<if test="orders != null">
+			order by
+			<foreach item="value" separator="," index="key" collection="orders">
+				a.${key} ${value}
+			</foreach>
+		</if>
+	</select>
+	
+	<!-- 新增 -->
+	<insert id="addRoleModule" useGeneratedKeys="true" keyProperty="id"> 
+		INSERT INTO role_module 
+		(role_id,module_id,is_enabled,created,modified) 
+		VALUES
+		(#{roleId},#{moduleId},#{isEnabled},#{created},#{modified})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="updateRoleModule">
+		UPDATE role_module
+		<set>
+			<if test="params.containsKey('roleId') and params.roleId != null">role_id = #{params.roleId},</if>
+			<if test="params.containsKey('moduleId') and params.moduleId != null">module_id = #{params.moduleId},</if>
+			<if test="params.containsKey('isEnabled') and params.isEnabled != null">is_enabled = #{params.isEnabled},</if>
+			<if test="params.containsKey('created') and params.created != null">created = #{params.created},</if>
+			<if test="params.containsKey('modified') and params.modified != null">modified = #{params.modified},</if>
+		</set>
+		where id = #{params.id}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="deleteRoleModules">
+		DELETE FROM role_module
+		<where>
+			id in
+			<foreach collection="ids" item="id" separator="," open="(" close=")">
+				#{id}
+			</foreach>
+		</where>
+	</delete>
+</mapper>

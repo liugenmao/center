@@ -1,0 +1,74 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoliu.centerbiz.dao.IModuleDao">
+	<!-- 实体 -->
+	<resultMap id="module" type="com.xiaoliu.centerbiz.domain.Module">
+		<id column="id" property="id" />
+		<result column="parent_id" property="parentId" />
+		<result column="module_name" property="moduleName" />
+		<result column="module_desc" property="moduleDesc" />
+		<result column="module_url" property="moduleUrl" />
+		<result column="module_icon_css" property="moduleIconCss" />
+		<result column="sort" property="sort" />
+		<result column="is_enabled" property="isEnabled" />
+		<result column="created" property="created" />
+		<result column="modified" property="modified" />
+	</resultMap>
+	
+	<!-- 分页查询并排序 -->
+	<select id="listModules" resultMap="module">
+		SELECT * FROM module a
+		<where>
+				<if test="params.containsKey('parentId') and params.parentId != null">AND parent_id = #{params.parentId}</if>
+				<if test="params.containsKey('moduleName') and params.moduleName != null">AND module_name = #{params.moduleName}</if>
+				<if test="params.containsKey('moduleDesc') and params.moduleDesc != null">AND module_desc = #{params.moduleDesc}</if>
+				<if test="params.containsKey('moduleUrl') and params.moduleUrl != null">AND module_url = #{params.moduleUrl}</if>
+				<if test="params.containsKey('moduleIconCss') and params.moduleIconCss != null">AND module_icon_css = #{params.moduleIconCss}</if>
+				<if test="params.containsKey('sort') and params.sort != null">AND sort = #{params.sort}</if>
+				<if test="params.containsKey('isEnabled') and params.isEnabled != null">AND is_enabled = #{params.isEnabled}</if>
+				<if test="params.containsKey('created') and params.created != null">AND created = #{params.created}</if>
+				<if test="params.containsKey('modified') and params.modified != null">AND modified = #{params.modified}</if>
+		</where>
+		<if test="orders != null">
+			order by
+			<foreach item="value" separator="," index="key" collection="orders">
+				a.${key} ${value}
+			</foreach>
+		</if>
+	</select>
+	
+	<!-- 新增 -->
+	<insert id="addModule" useGeneratedKeys="true" keyProperty="id"> 
+		INSERT INTO module 
+		(parent_id,module_name,module_desc,module_url,module_icon_css,sort,is_enabled,created,modified) 
+		VALUES
+		(#{parentId},#{moduleName},#{moduleDesc},#{moduleUrl},#{moduleIconCss},#{sort},#{isEnabled},#{created},#{modified})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="updateModule">
+		UPDATE module
+		<set>
+			<if test="params.containsKey('parentId') and params.parentId != null">parent_id = #{params.parentId},</if>
+			<if test="params.containsKey('moduleName') and params.moduleName != null">module_name = #{params.moduleName},</if>
+			<if test="params.containsKey('moduleDesc') and params.moduleDesc != null">module_desc = #{params.moduleDesc},</if>
+			<if test="params.containsKey('moduleUrl') and params.moduleUrl != null">module_url = #{params.moduleUrl},</if>
+			<if test="params.containsKey('moduleIconCss') and params.moduleIconCss != null">module_icon_css = #{params.moduleIconCss},</if>
+			<if test="params.containsKey('sort') and params.sort != null">sort = #{params.sort},</if>
+			<if test="params.containsKey('isEnabled') and params.isEnabled != null">is_enabled = #{params.isEnabled},</if>
+			<if test="params.containsKey('created') and params.created != null">created = #{params.created},</if>
+			<if test="params.containsKey('modified') and params.modified != null">modified = #{params.modified},</if>
+		</set>
+		where id = #{params.id}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="deleteModules">
+		DELETE FROM module
+		<where>
+			id in
+			<foreach collection="ids" item="id" separator="," open="(" close=")">
+				#{id}
+			</foreach>
+		</where>
+	</delete>
+</mapper>

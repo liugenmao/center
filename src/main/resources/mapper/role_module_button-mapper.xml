@@ -1,0 +1,62 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoliu.centerbiz.dao.IRoleModuleButtonDao">
+	<!-- 实体 -->
+	<resultMap id="roleModuleButton" type="com.xiaoliu.centerbiz.domain.RoleModuleButton">
+		<id column="id" property="id" />
+		<result column="role_id" property="roleId" />
+		<result column="module_button_id" property="moduleButtonId" />
+		<result column="is_enabled" property="isEnabled" />
+		<result column="created" property="created" />
+		<result column="modified" property="modified" />
+	</resultMap>
+	
+	<!-- 分页查询并排序 -->
+	<select id="listRoleModuleButtons" resultMap="roleModuleButton">
+		SELECT * FROM role_module_button a
+		<where>
+				<if test="params.containsKey('roleId') and params.roleId != null">AND role_id = #{params.roleId}</if>
+				<if test="params.containsKey('moduleButtonId') and params.moduleButtonId != null">AND module_button_id = #{params.moduleButtonId}</if>
+				<if test="params.containsKey('isEnabled') and params.isEnabled != null">AND is_enabled = #{params.isEnabled}</if>
+				<if test="params.containsKey('created') and params.created != null">AND created = #{params.created}</if>
+				<if test="params.containsKey('modified') and params.modified != null">AND modified = #{params.modified}</if>
+		</where>
+		<if test="orders != null">
+			order by
+			<foreach item="value" separator="," index="key" collection="orders">
+				a.${key} ${value}
+			</foreach>
+		</if>
+	</select>
+	
+	<!-- 新增 -->
+	<insert id="addRoleModuleButton" useGeneratedKeys="true" keyProperty="id"> 
+		INSERT INTO role_module_button 
+		(role_id,module_button_id,is_enabled,created,modified) 
+		VALUES
+		(#{roleId},#{moduleButtonId},#{isEnabled},#{created},#{modified})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="updateRoleModuleButton">
+		UPDATE role_module_button
+		<set>
+			<if test="params.containsKey('roleId') and params.roleId != null">role_id = #{params.roleId},</if>
+			<if test="params.containsKey('moduleButtonId') and params.moduleButtonId != null">module_button_id = #{params.moduleButtonId},</if>
+			<if test="params.containsKey('isEnabled') and params.isEnabled != null">is_enabled = #{params.isEnabled},</if>
+			<if test="params.containsKey('created') and params.created != null">created = #{params.created},</if>
+			<if test="params.containsKey('modified') and params.modified != null">modified = #{params.modified},</if>
+		</set>
+		where id = #{params.id}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="deleteRoleModuleButtons">
+		DELETE FROM role_module_button
+		<where>
+			id in
+			<foreach collection="ids" item="id" separator="," open="(" close=")">
+				#{id}
+			</foreach>
+		</where>
+	</delete>
+</mapper>
