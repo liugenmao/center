@@ -1,4 +1,4 @@
-package com.xiaoliu.centerweb;
+package com.xiaoliu;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
