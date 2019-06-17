@@ -10,12 +10,12 @@
 		</#list>
 	</resultMap>
 	
-	<!-- 分页查询并排序 -->
+	<!-- 列表 -->
 	<select id="list${domainName}s" resultMap="${resultMapId}">
 		SELECT * FROM ${tableName} a
 		<where>
 			<#list ordinaryColumns as columnName>
-				<if test="params.containsKey('${mappings[columnName]}') and params.${mappings[columnName]} != null">AND ${columnName} = ${r'#{params.'}${mappings[columnName]}${r'}'}</if>
+			<if test="params.containsKey('${mappings[columnName]}') and params.${mappings[columnName]} != null">AND ${columnName} = ${r'#{params.'}${mappings[columnName]}${r'}'}</if>
 			</#list>
 		</where>
 		<if test="orders != null">

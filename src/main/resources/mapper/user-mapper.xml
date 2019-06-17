@@ -12,17 +12,17 @@
 		<result column="modified" property="modified" />
 	</resultMap>
 	
-	<!-- 分页查询并排序 -->
+	<!-- 列表 -->
 	<select id="listUsers" resultMap="user">
 		SELECT * FROM user a
 		<where>
-				<if test="params.containsKey('username') and params.username != null">AND username = #{params.username}</if>
-				<if test="params.containsKey('password') and params.password != null">AND password = #{params.password}</if>
-				<if test="params.containsKey('isEnabled') and params.isEnabled != null">AND is_enabled = #{params.isEnabled}</if>
-				<if test="params.containsKey('realname') and params.realname != null">AND realname = #{params.realname}</if>
-				<if test="params.containsKey('phoneNumber') and params.phoneNumber != null">AND phone_number = #{params.phoneNumber}</if>
-				<if test="params.containsKey('created') and params.created != null">AND created = #{params.created}</if>
-				<if test="params.containsKey('modified') and params.modified != null">AND modified = #{params.modified}</if>
+			<if test="params.containsKey('username') and params.username != null">AND username = #{params.username}</if>
+			<if test="params.containsKey('password') and params.password != null">AND password = #{params.password}</if>
+			<if test="params.containsKey('isEnabled') and params.isEnabled != null">AND is_enabled = #{params.isEnabled}</if>
+			<if test="params.containsKey('realname') and params.realname != null">AND realname = #{params.realname}</if>
+			<if test="params.containsKey('phoneNumber') and params.phoneNumber != null">AND phone_number = #{params.phoneNumber}</if>
+			<if test="params.containsKey('created') and params.created != null">AND created = #{params.created}</if>
+			<if test="params.containsKey('modified') and params.modified != null">AND modified = #{params.modified}</if>
 		</where>
 		<if test="orders != null">
 			order by

@@ -1,13 +1,13 @@
 package com.xiaoliu.centerbiz.domain;
 
-import java.util.Date;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  *
  *
  * @author
- * @version
+ * @date
  **/
 public class RoleModuleButton {
 	

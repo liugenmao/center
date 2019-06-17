@@ -2,30 +2,33 @@ package ${DAOInterfacePackage};
 
 import java.util.List;
 import java.util.Map;
-import java.util.LinkedHashMap;
+import java.util.TreeMap;
 
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
-import com.yuouhui.oc.assist.common.db.SQLOrder;
-import com.yuouhui.oc.assist.common.model.Pageable;
+import com.xiaoliu.centerbiz.common.db.SQLOrder;
+import com.xiaoliu.centerbiz.common.model.Pageable;
 
 import ${domainPackage}.${domainName};
+
+import java.util.LinkedHashMap;
 
 /**
  *
  *
  * @author
- * @version
+ * @date
  **/
 public interface ${DAOName} {
 	
 	<#if primaryKey?exists>
 	/**
-	 * 通过id获取XX信息
+	 * 获取详情
+	 *
 	 * @param id 主键
-	 * @return
+	 * @return 详情
 	 */
 	@Select("select * from ${tableName} where ${primaryKey} = ${r'#{id}'}")
 	@Options(useCache = false)
@@ -34,32 +37,36 @@ public interface ${DAOName} {
 	</#if>
 	
 	/**
-	 * 添加一个XX
-	 * @param entity XXX
-	 * @return
+	 * 添加
+	 *
+	 * @param entity
+	 * @return 成功条数
 	 */
 	int add${domainName}( ${domainName} entity );
 	
 	/**
-	 * 删除多个XX记录
+	 * 删除多个
+	 *
 	 * @param ids 主键集合
-	 * @return
+	 * @return 成功条数
 	 */
 	int delete${domainName}s( @Param("ids") Long... ids );
 
 	/**
-	 * 修改XX
-	 * @param params - 请在此处添加上可提供的查询参数
-	 * @return
+	 * 修改
+	 *
+	 * @param params 修改参数
+	 * @return 成功条数
 	 */
 	int update${domainName}( @Param("params") Map<String, Object> params );
 	
 	/**
-	 * 列表XX
+	 * 列表
+	 *
 	 * @param pageable 分页参数
-	 * @param params 查询参数 - 请在此处添加上可提供的查询参数
-	 * @param orders 排序参数 - 请在此处添加上可提供的排序参数
-	 * @return
+	 * @param params   查询参数
+	 * @param orders   排序参数
+	 * @return 列表
 	 */
 	List<${domainName}> list${domainName}s( @Param("pageable") Pageable pageable, @Param("params") Map<String, Object> params, @Param("orders") LinkedHashMap<String, SQLOrder> orders );
 }

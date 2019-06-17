@@ -1,0 +1,11 @@
+server:
+  port: 8080
+
+logging.level: info
+logging.level.com.xiaoliu: debug
+
+oc.datasource:
+  jdbc_url: jdbc:mysql://127.0.0.1:3306/center?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+  username: root
+  password: root
+  driver_class_name: com.mysql.jdbc.Driver

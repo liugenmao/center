@@ -9,14 +9,14 @@
 		<result column="modified" property="modified" />
 	</resultMap>
 	
-	<!-- 分页查询并排序 -->
+	<!-- 列表 -->
 	<select id="listRoleUsers" resultMap="roleUser">
 		SELECT * FROM role_user a
 		<where>
-				<if test="params.containsKey('roleId') and params.roleId != null">AND role_id = #{params.roleId}</if>
-				<if test="params.containsKey('userId') and params.userId != null">AND user_id = #{params.userId}</if>
-				<if test="params.containsKey('created') and params.created != null">AND created = #{params.created}</if>
-				<if test="params.containsKey('modified') and params.modified != null">AND modified = #{params.modified}</if>
+			<if test="params.containsKey('roleId') and params.roleId != null">AND role_id = #{params.roleId}</if>
+			<if test="params.containsKey('userId') and params.userId != null">AND user_id = #{params.userId}</if>
+			<if test="params.containsKey('created') and params.created != null">AND created = #{params.created}</if>
+			<if test="params.containsKey('modified') and params.modified != null">AND modified = #{params.modified}</if>
 		</where>
 		<if test="orders != null">
 			order by
