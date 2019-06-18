@@ -1,0 +1,71 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoliu.centerbiz.dao.IModuleButtonDao">
+	<!-- 实体 -->
+	<resultMap id="moduleButton" type="com.xiaoliu.centerbiz.domain.ModuleButton">
+		<id column="id" property="id" />
+		<result column="module_id" property="moduleId" />
+		<result column="button_name" property="buttonName" />
+		<result column="button_url" property="buttonUrl" />
+		<result column="button_code" property="buttonCode" />
+		<result column="button_type" property="buttonType" />
+		<result column="button_desc" property="buttonDesc" />
+		<result column="created" property="created" />
+		<result column="modified" property="modified" />
+	</resultMap>
+	
+	<!-- 列表 -->
+	<select id="listModuleButtons" resultMap="moduleButton">
+		SELECT * FROM module_button a
+		<where>
+			<if test="params.containsKey('moduleId') and params.moduleId != null">AND module_id = #{params.moduleId}</if>
+			<if test="params.containsKey('buttonName') and params.buttonName != null">AND button_name = #{params.buttonName}</if>
+			<if test="params.containsKey('buttonUrl') and params.buttonUrl != null">AND button_url = #{params.buttonUrl}</if>
+			<if test="params.containsKey('buttonCode') and params.buttonCode != null">AND button_code = #{params.buttonCode}</if>
+			<if test="params.containsKey('buttonType') and params.buttonType != null">AND button_type = #{params.buttonType}</if>
+			<if test="params.containsKey('buttonDesc') and params.buttonDesc != null">AND button_desc = #{params.buttonDesc}</if>
+			<if test="params.containsKey('created') and params.created != null">AND created = #{params.created}</if>
+			<if test="params.containsKey('modified') and params.modified != null">AND modified = #{params.modified}</if>
+		</where>
+		<if test="orders != null">
+			order by
+			<foreach item="value" separator="," index="key" collection="orders">
+				a.${key} ${value}
+			</foreach>
+		</if>
+	</select>
+	
+	<!-- 新增 -->
+	<insert id="addModuleButton" useGeneratedKeys="true" keyProperty="id"> 
+		INSERT INTO module_button 
+		(module_id,button_name,button_url,button_code,button_type,button_desc,created,modified) 
+		VALUES
+		(#{moduleId},#{buttonName},#{buttonUrl},#{buttonCode},#{buttonType},#{buttonDesc},#{created},#{modified})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="updateModuleButton">
+		UPDATE module_button
+		<set>
+			<if test="params.containsKey('moduleId') and params.moduleId != null">module_id = #{params.moduleId},</if>
+			<if test="params.containsKey('buttonName') and params.buttonName != null">button_name = #{params.buttonName},</if>
+			<if test="params.containsKey('buttonUrl') and params.buttonUrl != null">button_url = #{params.buttonUrl},</if>
+			<if test="params.containsKey('buttonCode') and params.buttonCode != null">button_code = #{params.buttonCode},</if>
+			<if test="params.containsKey('buttonType') and params.buttonType != null">button_type = #{params.buttonType},</if>
+			<if test="params.containsKey('buttonDesc') and params.buttonDesc != null">button_desc = #{params.buttonDesc},</if>
+			<if test="params.containsKey('created') and params.created != null">created = #{params.created},</if>
+			<if test="params.containsKey('modified') and params.modified != null">modified = #{params.modified},</if>
+		</set>
+		where id = #{params.id}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="deleteModuleButtons">
+		DELETE FROM module_button
+		<where>
+			id in
+			<foreach collection="ids" item="id" separator="," open="(" close=")">
+				#{id}
+			</foreach>
+		</where>
+	</delete>
+</mapper>
