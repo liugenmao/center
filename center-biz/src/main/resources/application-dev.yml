@@ -1,3 +1,8 @@
+
+##showSql##
+logging.level:
+  com.xiaoliu.centerbiz.mapper: debug
+
 ##数据库连接##
 center.datasource:
   jdbc_url: jdbc:mysql://127.0.0.1:3306/center?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
@@ -6,31 +11,25 @@ center.datasource:
   driver_class_name: com.mysql.jdbc.Driver
 
 ##mybatis##
-mybatis:
-  mapper-locations: classpath:mapper/**mapper.xml
-  type-aliases-package: com.xiaoliu.centerbiz.domain
-
-##showSql##
-logging.level:
-  com.example.mapper: debug
-
+#mybatis:
+#  mapper-locations: classpath:mapper/**mapper.xml
+#  type-aliases-package: com.xiaoliu.centerbiz.domain
 
 #阿里druid连接池驱动配置信息
-spring:
-  datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    #连接池的配置信息
-    initialSize: 2  #初始化大小
-    minIdle: 2  #最小
-    maxActive: 3  #最大
-    maxWait: 6000  #配置获取连接等待超时的时间
-    timeBetweenEvictionRunsMillis: 60000  #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
-    minEvictableIdleTimeMillis: 300000  #配置一个连接在池中最小生存的时间，单位是毫秒
-    validationQuery: SELECT 1 FROM DUAL
-    testWhileIdle: true
-    testOnBorrow: false
-    testOnReturn: false
-    poolPreparedStatements: true  #打开PSCache，并且指定每个连接上PSCache的大小
-    maxPoolPreparedStatementPerConnectionSize: 20
-    filters: stat,wall,log4j  #配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
-    connectionProperties=druid.stat.mergeSql: true;druid.stat.slowSqlMillis=5000  #通过connectProperties属性来打开mergeSql功能；慢SQL记录
+#spring:
+#  datasource:
+#    type: com.alibaba.druid.pool.DruidDataSource  #连接池的配置信息
+#    initialSize: 2  #初始化大小
+#    minIdle: 2  #最小
+#    maxActive: 3  #最大
+#    maxWait: 6000  #配置获取连接等待超时的时间
+#    timeBetweenEvictionRunsMillis: 60000  #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+#    minEvictableIdleTimeMillis: 300000  #配置一个连接在池中最小生存的时间，单位是毫秒
+#    validationQuery: SELECT 1 FROM DUAL
+#    testWhileIdle: true
+#    testOnBorrow: false
+#    testOnReturn: false
+#    poolPreparedStatements: true  #打开PSCache，并且指定每个连接上PSCache的大小
+#    maxPoolPreparedStatementPerConnectionSize: 20
+#    filters: stat,wall,log4j  #配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+#    connectionProperties=druid.stat.mergeSql: true;druid.stat.slowSqlMillis=5000  #通过connectProperties属性来打开mergeSql功能；慢SQL记录

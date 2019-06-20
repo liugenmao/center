@@ -7,7 +7,6 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -28,24 +27,23 @@ import java.util.Properties;
  */
 @Configuration
 @EnableTransactionManagement
-@ConfigurationProperties(prefix = "center.datasource")
 public class MyBatisConfig implements TransactionManagementConfigurer {
 
-    @Value( "${oc.datasource.jdbc_url}" )
+    @Value( "${center.datasource.jdbc_url}" )
     private String jdbcUrl;
 
-    @Value( "${oc.datasource.username}" )
+    @Value( "${center.datasource.username}" )
     private String username;
 
-    @Value( "${oc.datasource.password}" )
+    @Value( "${center.datasource.password}" )
     private String password;
 
-    @Value( "${oc.datasource.driver_class_name}" )
+    @Value( "${center.datasource.driver_class_name}" )
     private String driverClassName;
 
     private DataSource dataSource;
 
-    @Bean( name = "ocAssistDataSource" )
+    @Bean( name = "centerDataSource" )
     public DataSource datasource() {
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setUrl( jdbcUrl );
@@ -57,11 +55,11 @@ public class MyBatisConfig implements TransactionManagementConfigurer {
     }
 
     @Bean( name = "sqlSessionFactory" )
-    @DependsOn( "ocAssistDataSource" )
+    @DependsOn( "centerDataSource" )
     public SqlSessionFactory sqlSessionFactoryBean() {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource( dataSource );
-        bean.setTypeAliasesPackage( "com.yuouhui.oc.assist.domain" );
+        bean.setTypeAliasesPackage( "com.xiaoliu.centerbiz.domain" );
 
         //分页插件
         PageInterceptor pageInterceptor = new PageInterceptor();
@@ -72,12 +70,12 @@ public class MyBatisConfig implements TransactionManagementConfigurer {
         pageInterceptor.setProperties( properties );
 
         //添加插件
-        bean.setPlugins( new Interceptor[]{pageInterceptor} );
+        bean.setPlugins( new Interceptor[]{ pageInterceptor } );
 
         //添加XML目录
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
-            bean.setMapperLocations( resolver.getResources( "classpath:mapper/**/**.xml" ) );
+            bean.setMapperLocations( resolver.getResources( "classpath:mapper/**.xml" ) );
             return bean.getObject();
         } catch ( Exception e ) {
             e.printStackTrace();
@@ -86,12 +84,12 @@ public class MyBatisConfig implements TransactionManagementConfigurer {
     }
 
     @Bean
-    public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory ) {
+    public SqlSessionTemplate sqlSessionTemplate( SqlSessionFactory sqlSessionFactory ) {
         return new SqlSessionTemplate( sqlSessionFactory );
     }
 
     @Bean
-    @DependsOn( "ocAssistDataSource" )
+    @DependsOn( "centerDataSource" )
     @Override
     public PlatformTransactionManager annotationDrivenTransactionManager() {
         return new DataSourceTransactionManager( dataSource );
