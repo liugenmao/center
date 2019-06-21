@@ -6,10 +6,10 @@ logging.level.com.xiaoliu: debug
 
 ##数据库连接##
 center.datasource:
-  jdbc_url: jdbc:mysql://127.0.0.1:3306/center?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+  jdbc_url: jdbc:mysql://127.0.0.1:3306/center?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&nullCatalogMeansCurrent=true
   username: root
   password: root
-  driver_class_name: com.mysql.jdbc.Driver
+  driver_class_name: com.mysql.cj.jdbc.Driver
 
 ##mybatis##
 #mybatis:
@@ -17,9 +17,9 @@ center.datasource:
 #  type-aliases-package: com.xiaoliu.centerbiz.domain
 
 #阿里druid连接池驱动配置信息
-#spring:
-#  datasource:
-#    type: com.alibaba.druid.pool.DruidDataSource  #连接池的配置信息
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource  #连接池的配置信息
 #    initialSize: 2  #初始化大小
 #    minIdle: 2  #最小
 #    maxActive: 3  #最大
