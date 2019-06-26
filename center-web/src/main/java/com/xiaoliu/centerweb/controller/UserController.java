@@ -1,5 +1,6 @@
 package com.xiaoliu.centerweb.controller;
 
+import com.xiaoliu.centerbiz.common.result.Result;
 import com.xiaoliu.centerbiz.domain.User;
 import com.xiaoliu.centerbiz.service.IUserService;
 import org.springframework.stereotype.Controller;
@@ -23,5 +24,12 @@ public class UserController {
         User user = userService.getUserByUsername("admin");
         model.addAttribute("user", user);
         return "index";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/update", method = RequestMethod.GET)
+    public String updateUser(User user, Model model) {
+        Result result = userService.updateUser(user);
+        return result.getMessage();
     }
 }
