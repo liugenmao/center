@@ -2,6 +2,7 @@ package com.xiaoliu.centerbiz.service.impl;
 
 import com.github.oxo42.stateless4j.StateMachine;
 import com.github.oxo42.stateless4j.StateMachineConfig;
+import com.xiaoliu.centerbiz.common.annotation.NotEmpty;
 import com.xiaoliu.centerbiz.common.result.Result;
 import com.xiaoliu.centerbiz.dao.IUserDao;
 import com.xiaoliu.centerbiz.domain.User;
@@ -27,6 +28,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    @NotEmpty(name = {"username"}, messages = {"用户名不能为空"})
     public Result updateUser(User user) {
         /*UserStatusEnum a = UserStatusEnum.A;
         UserStatusEnum b = UserStatusEnum.B;

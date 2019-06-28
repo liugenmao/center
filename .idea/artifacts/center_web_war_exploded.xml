@@ -38,6 +38,10 @@
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.16" />
           <element id="library" level="project" name="Maven: com.github.oxo42:stateless4j:2.5.0" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-jdk14:1.7.26" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.8.1" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-aspects:5.1.7.RELEASE" />
+          <element id="library" level="project" name="Maven: org.aspectj:aspectjrt:1.9.4" />
+          <element id="library" level="project" name="Maven: org.aspectj:aspectjweaver:1.9.4" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-web:2.1.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-json:2.1.5.RELEASE" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.8" />
