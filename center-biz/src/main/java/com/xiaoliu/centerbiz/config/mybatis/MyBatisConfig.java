@@ -6,6 +6,7 @@ import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,69 +30,74 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class MyBatisConfig implements TransactionManagementConfigurer {
 
-    @Value( "${center.datasource.jdbc_url}" )
+    @Value("${center.datasource.jdbc_url}")
     private String jdbcUrl;
 
-    @Value( "${center.datasource.username}" )
+    @Value("${center.datasource.username}")
     private String username;
 
-    @Value( "${center.datasource.password}" )
+    @Value("${center.datasource.password}")
     private String password;
 
-    @Value( "${center.datasource.driver_class_name}" )
+    @Value("${center.datasource.driver_class_name}")
     private String driverClassName;
 
     private DataSource dataSource;
 
-    @Bean( name = "centerDataSource" )
+    @Bean(name = "centerDataSource")
     public DataSource datasource() {
         DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setUrl( jdbcUrl );
-        dataSource.setUsername( username );
-        dataSource.setPassword( password );
-        dataSource.setDriverClassName( driverClassName );
+        dataSource.setUrl(jdbcUrl);
+        dataSource.setUsername(username);
+        dataSource.setPassword(password);
+        dataSource.setDriverClassName(driverClassName);
         this.dataSource = dataSource;
         return this.dataSource;
     }
 
-    @Bean( name = "sqlSessionFactory" )
-    @DependsOn( "centerDataSource" )
+    @Bean(name = "sqlSessionFactory")
+    @DependsOn("centerDataSource")
     public SqlSessionFactory sqlSessionFactoryBean() {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
-        bean.setDataSource( dataSource );
-        bean.setTypeAliasesPackage( "com.xiaoliu.centerbiz.domain" );
+        bean.setDataSource(dataSource);
+        bean.setTypeAliasesPackage("com.xiaoliu.centerbiz.domain");
 
         //分页插件
         PageInterceptor pageInterceptor = new PageInterceptor();
         Properties properties = new Properties();
-        properties.setProperty( "supportMethodsArguments", "true" );
-        properties.setProperty( "helperDialect", "mysql" );
-        properties.setProperty( "params", "pageNum=pageable.pageNumber;pageSize=pageable.pageSize;" );
-        pageInterceptor.setProperties( properties );
+        properties.setProperty("supportMethodsArguments", "true");
+        properties.setProperty("helperDialect", "mysql");
+        properties.setProperty("params", "pageNum=pageable.pageNumber;pageSize=pageable.pageSize;");
+        pageInterceptor.setProperties(properties);
 
         //添加插件
-        bean.setPlugins( new Interceptor[]{ pageInterceptor } );
+        bean.setPlugins(new Interceptor[]{pageInterceptor});
 
         //添加XML目录
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
-            bean.setMapperLocations( resolver.getResources( "classpath:mapper/**.xml" ) );
+            bean.setMapperLocations(resolver.getResources("classpath:mapper/**.xml"));
             return bean.getObject();
-        } catch ( Exception e ) {
+        } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException( e );
+            throw new RuntimeException(e);
         }
     }
 
     @Bean
-    public SqlSessionTemplate sqlSessionTemplate( SqlSessionFactory sqlSessionFactory ) {
-        return new SqlSessionTemplate( sqlSessionFactory );
+    public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
+        return new SqlSessionTemplate(sqlSessionFactory);
     }
 
     @Bean
-    @DependsOn( "centerDataSource" )
+    @DependsOn("centerDataSource")
     @Override
     public PlatformTransactionManager annotationDrivenTransactionManager() {
-        return new DataSourceTransactionManager( dataSource );
+        return new DataSourceTransactionManager(dataSource);
+    }
+
+    @Bean(name = "centerTransactionManager")
+    public DataSourceTransactionManager centerTransactionManager(@Qualifier("centerDataSource") DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
     }
 }

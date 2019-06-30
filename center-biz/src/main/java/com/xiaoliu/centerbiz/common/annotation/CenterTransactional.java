@@ -19,8 +19,8 @@ import java.lang.annotation.Target;
  */
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Transactional(value = "ocTransactionManager", propagation = Propagation.REQUIRES_NEW, rollbackFor = {LogicException.class, RuntimeException.class})
-public @interface OcTransactional {
+@Transactional(value = "centerTransactionManager", propagation = Propagation.REQUIRES_NEW, rollbackFor = {LogicException.class, RuntimeException.class})
+public @interface CenterTransactional {
 
     /**
      * 事务传递性，请参考{@link Transactional#propagation()}

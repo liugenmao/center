@@ -2,8 +2,11 @@ package com.xiaoliu.centerbiz.service.impl;
 
 import com.github.oxo42.stateless4j.StateMachine;
 import com.github.oxo42.stateless4j.StateMachineConfig;
+import com.xiaoliu.centerbiz.common.annotation.CenterTransactional;
 import com.xiaoliu.centerbiz.common.annotation.NotEmpty;
+import com.xiaoliu.centerbiz.common.exception.LogicException;
 import com.xiaoliu.centerbiz.common.result.Result;
+import com.xiaoliu.centerbiz.common.utils.DateUtils;
 import com.xiaoliu.centerbiz.dao.IUserDao;
 import com.xiaoliu.centerbiz.domain.User;
 import com.xiaoliu.centerbiz.domain.enumeration.UserStatusEnum;
@@ -13,6 +16,8 @@ import com.xiaoliu.centerbiz.service.conver.UserStatusConver;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -29,7 +34,8 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     @NotEmpty(name = {"username"}, messages = {"用户名不能为空"})
-    public Result updateUser(User user) {
+    @CenterTransactional
+    public Result updateUser(User user) throws LogicException {
         /*UserStatusEnum a = UserStatusEnum.A;
         UserStatusEnum b = UserStatusEnum.B;
         UserStatusTriggerEnum x = UserStatusTriggerEnum.X;
@@ -49,8 +55,31 @@ public class UserServiceImpl implements IUserService {
             return new Result(false, "状态机校验失败");
         }*/
 
-        stateMachine.fire(UserStatusTriggerEnum.Y);
-        System.out.println("userStatus-->" + stateMachine.getState());
-        return new Result(true, stateMachine.getState() + "");
+//        stateMachine.fire(UserStatusTriggerEnum.Y);
+//        System.out.println("userStatus-->" + stateMachine.getState());
+//        return new Result(true, stateMachine.getState() + "");
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", 1L);
+        params.put("isEnabled", false);
+        try {
+            userDao.updateUser(params);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new LogicException("修改用户异常");
+        }
+
+        try {
+            user.setUsername("ceshi");
+            user.setPassword("123");
+            user.setEnabled(true);
+            user.setCreated(DateUtils.getCurrentTime());
+            user.setModified(DateUtils.getCurrentTime());
+            userDao.addUser(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new LogicException("添加用户异常");
+        }
+        return new Result(true, "成功");
     }
 }

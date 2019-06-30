@@ -26,10 +26,10 @@ public class ValidatorAdvisor extends AbstractPointcutAdvisor {
                 return false;
             }
             try {
-//                method = targetClass.getMethod(method.getName(), method.getParameterTypes());
+                method = targetClass.getMethod(method.getName(), method.getParameterTypes());
                 return method.isAnnotationPresent(Length.class) || method.isAnnotationPresent(NotNull.class) || method.isAnnotationPresent(NotEmpty.class) || method.isAnnotationPresent(Size.class);
             } catch (Exception e) {
-                e.printStackTrace();
+//                e.printStackTrace();
             }
             return false;
         }

@@ -1,5 +1,6 @@
 package com.xiaoliu.centerweb.controller;
 
+import com.xiaoliu.centerbiz.common.exception.LogicException;
 import com.xiaoliu.centerbiz.common.result.Result;
 import com.xiaoliu.centerbiz.domain.User;
 import com.xiaoliu.centerbiz.service.IUserService;
@@ -29,7 +30,13 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/update", method = RequestMethod.GET)
     public String updateUser(User user, Model model) {
-        Result result = userService.updateUser(user);
+        Result result = null;
+        try {
+            result = userService.updateUser(user);
+        } catch (LogicException e) {
+            e.printStackTrace();
+            result = new Result(false, e.getMessage());
+        }
         return result.getMessage();
     }
 }
