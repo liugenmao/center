@@ -9,6 +9,11 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/center-biz/pom.xml" />
         <option value="$PROJECT_DIR$/center-web/pom.xml" />
+        <option value="$PROJECT_DIR$/center-biz-uc/pom.xml" />
+        <option value="$PROJECT_DIR$/center-biz-sc/pom.xml" />
+        <option value="$PROJECT_DIR$/center-config/pom.xml" />
+        <option value="$PROJECT_DIR$/center-biz-base/pom.xml" />
+        <option value="$PROJECT_DIR$/center-common/pom.xml" />
       </list>
     </option>
   </component>

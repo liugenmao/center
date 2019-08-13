@@ -7,12 +7,22 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="center-biz" />
+        <module name="center-biz-base" />
+        <module name="center-biz-sc" />
+        <module name="center-biz-uc" />
+        <module name="center-common" />
+        <module name="center-config" />
         <module name="center-web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="center" target="1.8" />
       <module name="center-biz" target="1.8" />
+      <module name="center-biz-base" target="1.8" />
+      <module name="center-biz-sc" target="1.8" />
+      <module name="center-biz-uc" target="1.8" />
+      <module name="center-common" target="1.8" />
+      <module name="center-config" target="1.8" />
       <module name="center-web" target="1.8" />
     </bytecodeTargetLevel>
   </component>

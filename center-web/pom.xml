@@ -9,17 +9,17 @@
     </parent>
 
     <artifactId>center-web</artifactId>
-    <version>1.0.0</version>
     <packaging>war</packaging>
     <name>center-web</name>
-    <description>center-web</description>
 
     <dependencies>
-        <!-- 引入center-biz -->
         <dependency>
             <groupId>com.xiaoliu</groupId>
             <artifactId>center-biz</artifactId>
-            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xiaoliu</groupId>
+            <artifactId>center-config</artifactId>
         </dependency>
 
         <dependency>
@@ -48,16 +48,6 @@
             <version>5.4.2</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

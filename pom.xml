@@ -12,17 +12,79 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.5.RELEASE</version>
-        <relativePath/>
+        <version>2.1.7.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <properties>
         <java.version>1.8</java.version>
+        <biz.version>1.0.0</biz.version>
     </properties>
 
     <modules>
         <module>center-biz</module>
+        <module>center-biz-base</module>
+        <module>center-biz-sc</module>
+        <module>center-biz-uc</module>
+        <module>center-common</module>
+        <module>center-config</module>
         <module>center-web</module>
     </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.18</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.xiaoliu</groupId>
+                <artifactId>center-biz</artifactId>
+                <version>${biz.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.xiaoliu</groupId>
+                <artifactId>center-biz-base</artifactId>
+                <version>${biz.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.xiaoliu</groupId>
+                <artifactId>center-biz-sc</artifactId>
+                <version>${biz.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.xiaoliu</groupId>
+                <artifactId>center-biz-uc</artifactId>
+                <version>${biz.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.xiaoliu</groupId>
+                <artifactId>center-common</artifactId>
+                <version>${biz.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.xiaoliu</groupId>
+                <artifactId>center-config</artifactId>
+                <version>${biz.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
