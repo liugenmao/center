@@ -1,6 +1,6 @@
 package com.xiaoliu.center.biz.base.annotation;
 
-import com.xiaoliu.centerbiz.common.exception.LogicException;
+import com.xiaoliu.center.common.exception.LogicException;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.annotation.Isolation;

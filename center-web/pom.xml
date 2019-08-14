@@ -19,6 +19,14 @@
         </dependency>
         <dependency>
             <groupId>com.xiaoliu</groupId>
+            <artifactId>center-biz-sc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.xiaoliu</groupId>
+            <artifactId>center-biz-uc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.xiaoliu</groupId>
             <artifactId>center-config</artifactId>
         </dependency>
 

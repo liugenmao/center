@@ -7,6 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="center-biz" />
+        <module name="center-biz-base" />
+        <module name="center-biz-sc" />
+        <module name="center-biz-uc" />
+        <module name="center-common" />
+        <module name="center-config" />
         <module name="center-web" />
       </profile>
     </annotationProcessing>
@@ -24,6 +29,11 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="center-biz" options="-parameters" />
+      <module name="center-biz-base" options="-parameters" />
+      <module name="center-biz-sc" options="-parameters" />
+      <module name="center-biz-uc" options="-parameters" />
+      <module name="center-common" options="-parameters" />
+      <module name="center-config" options="-parameters" />
       <module name="center-web" options="-parameters" />
     </option>
   </component>

@@ -1,12 +1,11 @@
 package com.xiaoliu.centerbiz.service.impl;
 
 import com.github.oxo42.stateless4j.StateMachine;
-import com.github.oxo42.stateless4j.StateMachineConfig;
-import com.xiaoliu.centerbiz.common.annotation.CenterTransactional;
-import com.xiaoliu.centerbiz.common.annotation.NotEmpty;
-import com.xiaoliu.centerbiz.common.exception.LogicException;
-import com.xiaoliu.centerbiz.common.result.Result;
-import com.xiaoliu.centerbiz.common.utils.DateUtils;
+import com.xiaoliu.center.biz.base.annotation.CenterTransactional;
+import com.xiaoliu.center.biz.base.annotation.NotEmpty;
+import com.xiaoliu.center.common.exception.LogicException;
+import com.xiaoliu.center.common.result.Result;
+import com.xiaoliu.center.common.utils.DateUtils;
 import com.xiaoliu.centerbiz.dao.IUserDao;
 import com.xiaoliu.centerbiz.domain.User;
 import com.xiaoliu.centerbiz.domain.enumeration.UserStatusEnum;
@@ -80,6 +79,6 @@ public class UserServiceImpl implements IUserService {
             e.printStackTrace();
             throw new LogicException("添加用户异常");
         }
-        return new Result(true, "成功");
+        return Result.success("成功");
     }
 }

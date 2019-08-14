@@ -4,6 +4,11 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/center.iml" filepath="$PROJECT_DIR$/center.iml" />
       <module fileurl="file://$PROJECT_DIR$/center-biz/center-biz.iml" filepath="$PROJECT_DIR$/center-biz/center-biz.iml" />
+      <module fileurl="file://$PROJECT_DIR$/center-biz-base/center-biz-base.iml" filepath="$PROJECT_DIR$/center-biz-base/center-biz-base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/center-biz-sc/center-biz-sc.iml" filepath="$PROJECT_DIR$/center-biz-sc/center-biz-sc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/center-biz-uc/center-biz-uc.iml" filepath="$PROJECT_DIR$/center-biz-uc/center-biz-uc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/center-common/center-common.iml" filepath="$PROJECT_DIR$/center-common/center-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/center-config/center-config.iml" filepath="$PROJECT_DIR$/center-config/center-config.iml" />
       <module fileurl="file://$PROJECT_DIR$/center-web/center-web.iml" filepath="$PROJECT_DIR$/center-web/center-web.iml" />
     </modules>
   </component>
