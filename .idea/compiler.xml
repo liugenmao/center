@@ -7,11 +7,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="center-biz" />
-        <module name="center-biz-base" />
-        <module name="center-biz-sc" />
-        <module name="center-biz-uc" />
-        <module name="center-common" />
-        <module name="center-config" />
         <module name="center-web" />
       </profile>
     </annotationProcessing>
