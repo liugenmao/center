@@ -1,7 +1,7 @@
 package com.xiaoliu.centerbiz.dao;
 
-import com.xiaoliu.centerbiz.common.db.SQLOrder;
-import com.xiaoliu.centerbiz.common.model.Pageable;
+import com.xiaoliu.center.common.db.SQLOrder;
+import com.xiaoliu.center.common.model.Pageable;
 import com.xiaoliu.centerbiz.domain.RoleModuleButton;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;

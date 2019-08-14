@@ -1,8 +1,8 @@
 package com.xiaoliu.centerweb;
 
 import com.xiaoliu.CenterWebApplication;
-import com.xiaoliu.centerbiz.common.exception.LogicException;
-import com.xiaoliu.centerbiz.common.result.Result;
+import com.xiaoliu.center.common.exception.LogicException;
+import com.xiaoliu.center.common.result.Result;
 import com.xiaoliu.centerbiz.domain.User;
 import com.xiaoliu.centerbiz.service.IUserService;
 import org.junit.Test;
@@ -34,7 +34,7 @@ public class CenterWebApplicationTests {
             result = userService.updateUser(user);
         } catch (LogicException e) {
             e.printStackTrace();
-            result = new Result(false, e.getMessage());
+            result = Result.failed(e.getMessage());
         }
         System.out.println(result.getMessage());
     }

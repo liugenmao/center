@@ -1,8 +1,9 @@
 package com.xiaoliu.center.biz.base.aop;
 
-import com.xiaoliu.centerbiz.common.exception.ValidationException;
-import com.xiaoliu.centerbiz.common.result.Result;
-import com.xiaoliu.centerbiz.common.utils.ValidatorUtils;
+import com.xiaoliu.center.biz.base.annotation.*;
+import com.xiaoliu.center.common.exception.ValidationException;
+import com.xiaoliu.center.common.result.Result;
+import com.xiaoliu.center.common.utils.ValidatorUtils;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -172,7 +173,7 @@ public class ValidatorMethodInterceptor implements MethodInterceptor {
         Class<?> returnType = method.getReturnType();
 
         if (returnType.isAssignableFrom(Result.class)) {
-            return new Result(false, message);
+            return Result.failed(message);
         } else {
             throw new ValidationException(message);
         }

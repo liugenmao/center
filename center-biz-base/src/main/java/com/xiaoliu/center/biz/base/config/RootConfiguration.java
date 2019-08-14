@@ -1,7 +1,7 @@
 package com.xiaoliu.center.biz.base.config;
 
-import com.xiaoliu.centerbiz.common.aop.ValidatorAdvisor;
-import com.xiaoliu.centerbiz.common.aop.ValidatorMethodInterceptor;
+import com.xiaoliu.center.biz.base.aop.ValidatorAdvisor;
+import com.xiaoliu.center.biz.base.aop.ValidatorMethodInterceptor;
 import org.springframework.aop.framework.ProxyFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
